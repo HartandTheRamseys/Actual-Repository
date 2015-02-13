@@ -6,8 +6,7 @@ public class PlayerScript : MonoBehaviour {
 	public float jumpHeight = 500;
 	public bool isJumping = false;
 	public static bool facingRight;
-	public Rigidbody2D grenadePrefab;
-	public Transform grenadeLaunch;
+
 
 	// Use this for initialization
 	void Start () {
@@ -42,15 +41,7 @@ public class PlayerScript : MonoBehaviour {
 				isJumping = true;
 			}
 		}
-		if (Input.GetKeyDown (KeyCode.Mouse0)) {
-			var mousePos =  Input.mousePosition;
-			mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-			
-			Rigidbody2D minion = Instantiate(grenadePrefab, grenadeLaunch.position, grenadeLaunch.rotation) as Rigidbody2D;
-			
-			minion.transform.LookAt(mousePos);
-			minion.AddForce(minion.transform.forward * 2000f);
-		}
+
 	}
 	void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.tag == "Platform") {
@@ -62,5 +53,9 @@ public class PlayerScript : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+	void Death(){
+		Application.LoadLevel(Application.loadedLevel);
+
 	}
 }
