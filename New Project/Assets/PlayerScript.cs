@@ -49,9 +49,7 @@ public class PlayerScript : MonoBehaviour {
 	
 }
 void OnCollisionEnter2D(Collision2D col){
-	if (col.gameObject.tag == "Platform") {
-		isJumping = false;
-	}
+
 }
 void Flip(){
 	facingRight = !facingRight;
