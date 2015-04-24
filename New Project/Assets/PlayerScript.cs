@@ -59,6 +59,7 @@ public class PlayerScript : MonoBehaviour {
 		var mousePos = Input.mousePosition;
 		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+
 //		if (( mousePos.x > transform.localPosition.x) && !facingRight){
 //			Flip ();
 //		}
@@ -71,7 +72,7 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		rigidbody2D.rotation{Input.mousePosition}
 
 		
 		/*
