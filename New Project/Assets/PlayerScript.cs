@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
 	private bool take_damage = true;
 	public float dodge_speed = 2;
 	private bool isDodging = false;
+	private float step;
 	// Use this for initialization
 	void Start () {
 		facingRight = true;
@@ -21,15 +22,17 @@ public class PlayerScript : MonoBehaviour {
 						rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x * dodge_speed, rigidbody2D.velocity.y * dodge_speed);
 				}
 		else {
-		
-			var mouse_vec = Input.mousePosition;
-			float dx = mouse_vec.x-transform.position.x;
-			float dy = mouse_vec.y- transform.position.y;
-			float rangle = Mathf.Atan(dx/dy);
-			Debug.Log("rangle "+rangle);
-			float reverse_speed_x=Mathf.Cos(rangle)*speed;
-			float reverse_speed_y=Mathf.Sin(rangle)*speed;
-			rigidbody2D.velocity = new Vector2 (reverse_speed_x * dodge_speed, reverse_speed_y * dodge_speed);
+			Debug.Log ("deltatime "+Time.deltaTime+ "step " +step);
+			Transform child = transform.FindChild("BackDodge");
+			this.transform.position = Vector2.MoveTowards(this.transform.position,child.transform.position,dodge_speed);
+//			var mouse_vec = Input.mousePosition;
+//			float dx = mouse_vec.x-transform.position.x;
+//			float dy = mouse_vec.y- transform.position.y;
+//			float rangle = Mathf.Atan(dx/dy);
+//			Debug.Log("rangle "+rangle);
+//			float reverse_speed_x=Mathf.Cos(rangle)*speed;
+//			float reverse_speed_y=Mathf.Sin(rangle)*speed;
+//			rigidbody2D.velocity = new Vector2 (reverse_speed_x * dodge_speed, reverse_speed_y * dodge_speed);
 				}
 		isDodging = false;
 		take_damage = true;
@@ -72,7 +75,7 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		step = dodge_speed * Time.deltaTime;
 		
 		/*
 		//Jumping
