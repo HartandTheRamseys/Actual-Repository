@@ -9,6 +9,10 @@ public class PlayerScript : MonoBehaviour {
 	public float dodge_speed = 2;
 	private bool isDodging = false;
 	private float step;
+	public float hp = 10;
+	public float dmg = 2;
+	public float attackdistance = 2;
+
 	// Use this for initialization
 	void Start () {
 		facingRight = true;
@@ -23,15 +27,7 @@ public class PlayerScript : MonoBehaviour {
 				}
 		else {	
 
-	 		var mouse_vec = Input.mousePosition;
-			float dx = mouse_vec.x-transform.position.x;
-			float dy = mouse_vec.y- transform.position.y;
-			float rangle = Mathf.Atan(dx/dy);
-			Debug.Log("rangle "+rangle);
-			float reverse_speed_x=Mathf.Cos(rangle+Mathf.PI/2)*dx*-1/Mathf.Abs(dx)*speed;
-			float reverse_speed_y=Mathf.Cos(rangle+Mathf.PI/2)*dy*-1/Mathf.Abs(dy)*speed;
-			rigidbody2D.velocity = new Vector2 (reverse_speed_x * dodge_speed, reverse_speed_y * dodge_speed);
-			Debug.Log ("deltatime "+Time.deltaTime+ "step " +step);
+//			Debug.Log ("deltatime "+Time.deltaTime+ "step " +step);
 			Transform child = transform.FindChild("BackDodge");
 			this.transform.position = Vector2.MoveTowards(this.transform.position,child.transform.position,dodge_speed);
 //			var mouse_vec = Input.mousePosition;
@@ -71,18 +67,20 @@ public class PlayerScript : MonoBehaviour {
 				dodge(stationary);
 			}
 		}
+	
+		if (Input.GetMouseButtonDown (0)) {
+			float dis = Vector2.Distance (this.gameObject.transform.position, GameObject.FindGameObjectWithTag("Enemy").transform.position);
+			Debug.Log("clicked" + dis);
+			if (dis <= attackdistance){
+				Attack();
+			}
+		}
 
 		var mousePos = Input.mousePosition;
 		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
 
-//		if (( mousePos.x > transform.localPosition.x) && !facingRight){
-//			Flip ();
-//		}
-//		else if (( mousePos.x < transform.localPosition.x) && facingRight)
-//		{
-//			Flip();
-//		}
+
 		
 	}
 	
@@ -99,30 +97,29 @@ public class PlayerScript : MonoBehaviour {
 		transform.rotation = rot*Quaternion.Euler (0,90,0);
 
 		step = dodge_speed * Time.deltaTime;
-		
 
-		/*
-		//Jumping
-		if (Input.GetKeyDown (KeyCode.Space)){
-			if(isJumping == false){
-				rigidbody2D.AddForce(Vector2.up * jumpHeight);
-				isJumping = true;
-			}
-	}*/
+
+
 		
 	}
 	void OnCollisionEnter2D(Collision2D col){
 		
 	}
-	void Flip(){
-		facingRight = !facingRight;
-		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
-		transform.localScale = theScale;
-	}
+
 	void Death(){
-		Application.LoadLevel(Application.loadedLevel);
-		
+		Application.LoadLevel(Application.loadedLevel);		
+	}
+
+	void ApplyDamage(float damage) {
+		hp -= damage;
+		if (hp <= 0) {
+			Destroy (this.gameObject);
+		}
+	}
+	void Attack() {
+		Debug.Log ("sent damage");
+
+		GameObject.FindGameObjectWithTag("Enemy").SendMessage("ApplyDamage", dmg,SendMessageOptions.DontRequireReceiver);
 	}
 }
 
