@@ -72,7 +72,6 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		rigidbody2D.rotation{Input.mousePosition}
 
 		
 		/*
