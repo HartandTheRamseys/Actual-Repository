@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
 	private bool take_damage = true;
 	public float dodge_speed = 2;
 	private bool isDodging = false;
+	private float step;
 	// Use this for initialization
 	void Start () {
 		facingRight = true;
@@ -20,9 +21,9 @@ public class PlayerScript : MonoBehaviour {
 		if (!stationary) {
 						rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x * dodge_speed, rigidbody2D.velocity.y * dodge_speed);
 				}
-		else {
-		
-			var mouse_vec = Input.mousePosition;
+		else {	
+
+	 		var mouse_vec = Input.mousePosition;
 			float dx = mouse_vec.x-transform.position.x;
 			float dy = mouse_vec.y- transform.position.y;
 			float rangle = Mathf.Atan(dx/dy);
@@ -30,6 +31,17 @@ public class PlayerScript : MonoBehaviour {
 			float reverse_speed_x=Mathf.Cos(rangle+Mathf.PI/2)*dx*-1/Mathf.Abs(dx)*speed;
 			float reverse_speed_y=Mathf.Cos(rangle+Mathf.PI/2)*dy*-1/Mathf.Abs(dy)*speed;
 			rigidbody2D.velocity = new Vector2 (reverse_speed_x * dodge_speed, reverse_speed_y * dodge_speed);
+			Debug.Log ("deltatime "+Time.deltaTime+ "step " +step);
+			Transform child = transform.FindChild("BackDodge");
+			this.transform.position = Vector2.MoveTowards(this.transform.position,child.transform.position,dodge_speed);
+//			var mouse_vec = Input.mousePosition;
+//			float dx = mouse_vec.x-transform.position.x;
+//			float dy = mouse_vec.y- transform.position.y;
+//			float rangle = Mathf.Atan(dx/dy);
+//			Debug.Log("rangle "+rangle);
+//			float reverse_speed_x=Mathf.Cos(rangle)*speed;
+//			float reverse_speed_y=Mathf.Sin(rangle)*speed;
+//			rigidbody2D.velocity = new Vector2 (reverse_speed_x * dodge_speed, reverse_speed_y * dodge_speed);
 				}
 		isDodging = false;
 		take_damage = true;
@@ -37,6 +49,10 @@ public class PlayerScript : MonoBehaviour {
 		
 	void FixedUpdate(){
 		//Moving
+
+
+
+		//TODO add direction via mouse
 
 		float move = Input.GetAxis ("Horizontal");
 		float move_y = Input.GetAxis("Vertical");
@@ -59,6 +75,7 @@ public class PlayerScript : MonoBehaviour {
 		var mousePos = Input.mousePosition;
 		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+
 //		if (( mousePos.x > transform.localPosition.x) && !facingRight){
 //			Flip ();
 //		}
@@ -71,6 +88,7 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		//TODO add direction via mouse
 		var mousepos = Input.mousePosition;
 		var objectPos = Camera.main.WorldToScreenPoint (transform.position);
@@ -79,6 +97,10 @@ public class PlayerScript : MonoBehaviour {
 		Quaternion rot = Quaternion.LookRotation (relativepos);
 
 		transform.rotation = rot*Quaternion.Euler (0,90,0);
+
+		step = dodge_speed * Time.deltaTime;
+		
+
 		/*
 		//Jumping
 		if (Input.GetKeyDown (KeyCode.Space)){
