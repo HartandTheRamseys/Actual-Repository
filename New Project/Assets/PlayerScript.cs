@@ -27,8 +27,8 @@ public class PlayerScript : MonoBehaviour {
 			float dy = mouse_vec.y- transform.position.y;
 			float rangle = Mathf.Atan(dx/dy);
 			Debug.Log("rangle "+rangle);
-			float reverse_speed_x=Mathf.Cos(rangle)*speed;
-			float reverse_speed_y=Mathf.Sin(rangle)*speed;
+			float reverse_speed_x=Mathf.Cos(rangle+Mathf.PI/2)*dx*-1/Mathf.Abs(dx)*speed;
+			float reverse_speed_y=Mathf.Cos(rangle+Mathf.PI/2)*dy*-1/Mathf.Abs(dy)*speed;
 			rigidbody2D.velocity = new Vector2 (reverse_speed_x * dodge_speed, reverse_speed_y * dodge_speed);
 				}
 		isDodging = false;
@@ -38,6 +38,10 @@ public class PlayerScript : MonoBehaviour {
 	void FixedUpdate(){
 		//Moving
 		//TODO add direction via mouse
+		var mousepos = Input.mousePosition;
+	
+		transform.LookAt (mousepos);
+		transform.rotation = transform.rotation * Quaternion.Euler (0, 90, 0);
 		float move = Input.GetAxis ("Horizontal");
 		float move_y = Input.GetAxis("Vertical");
 
@@ -71,9 +75,7 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 
-		
 		/*
 		//Jumping
 		if (Input.GetKeyDown (KeyCode.Space)){
