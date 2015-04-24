@@ -37,11 +37,7 @@ public class PlayerScript : MonoBehaviour {
 		
 	void FixedUpdate(){
 		//Moving
-		//TODO add direction via mouse
-		var mousepos = Input.mousePosition;
-	
-		transform.LookAt (mousepos);
-		transform.rotation = transform.rotation * Quaternion.Euler (0, 90, 0);
+
 		float move = Input.GetAxis ("Horizontal");
 		float move_y = Input.GetAxis("Vertical");
 
@@ -75,7 +71,14 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//TODO add direction via mouse
+		var mousepos = Input.mousePosition;
+		var objectPos = Camera.main.WorldToScreenPoint (transform.position);
+	
+		Vector3 relativepos = mousepos - objectPos;
+		Quaternion rot = Quaternion.LookRotation (relativepos);
 
+		transform.rotation = rot*Quaternion.Euler (0,90,0);
 		/*
 		//Jumping
 		if (Input.GetKeyDown (KeyCode.Space)){
