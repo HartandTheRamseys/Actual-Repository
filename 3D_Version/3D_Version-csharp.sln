@@ -1,7 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{18E90C94-F30E-C9E0-E059-5A336E8D314D}") = "New Project", "Assembly-CSharp-vs.csproj", "{63FF453C-093C-D4B5-5060-95C6A24FEC85}"
+Project("{29753502-DCC0-B2F6-71BE-A77E4551BA68}") = "3D_Version", "Assembly-CSharp-vs.csproj", "{D3E5F9BB-5AEE-68F0-88A5-7125417BFD5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{63FF453C-093C-D4B5-5060-95C6A24FEC85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63FF453C-093C-D4B5-5060-95C6A24FEC85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63FF453C-093C-D4B5-5060-95C6A24FEC85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63FF453C-093C-D4B5-5060-95C6A24FEC85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3E5F9BB-5AEE-68F0-88A5-7125417BFD5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3E5F9BB-5AEE-68F0-88A5-7125417BFD5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3E5F9BB-5AEE-68F0-88A5-7125417BFD5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3E5F9BB-5AEE-68F0-88A5-7125417BFD5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																											GlobalSection(MonoDevelopProperties) = preSolution
+			GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -30,6 +30,7 @@ Global
 		$0.TextStylePolicy = $3
 		$3.FileWidth = 120
 		$3.TabWidth = 4
+		$3.IndentWidth = 4
 		$3.EolMarker = Unix
 		$3.inheritsSet = Mono
 		$3.inheritsScope = text/plain
