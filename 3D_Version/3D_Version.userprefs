@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SpearmanScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\SpearmanScript.cs" Line="10" Column="38" />
-      <File FileName="Assets\Scripts\PlayerScript.cs" Line="19" Column="12" />
+      <File FileName="Assets\Scripts\PlayerScript.cs" Line="75" Column="24" />
+      <File FileName="Assets\Scripts\SpearmanScript.cs" Line="27" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

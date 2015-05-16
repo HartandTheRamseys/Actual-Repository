@@ -12,6 +12,9 @@ public class PlayerScript : MonoBehaviour {
 	public float hp = 10;
 	public float dmg = 2;
 	public float attackdistance = 2;
+	private GameObject closestEnemy;
+	private float distance = Mathf.Infinity;
+
 
 	// Use this for initialization
 	void Start () {
@@ -69,8 +72,9 @@ public class PlayerScript : MonoBehaviour {
 		}
 	
 		if (Input.GetMouseButtonDown (0)) {
-			if (GameObject.FindGameObjectWithTag ("Enemy") != null){
-				float dis = Vector3.Distance (this.gameObject.transform.position, GameObject.FindGameObjectWithTag ("Enemy").transform.position);
+			FindClosestEnemy ();
+			if (closestEnemy != null){
+				float dis = Vector3.Distance (this.gameObject.transform.position, closestEnemy.transform.position);
 				Debug.Log("clicked" + dis);
 				if (dis <= attackdistance){
 					Attack();
@@ -120,8 +124,19 @@ public class PlayerScript : MonoBehaviour {
 	}
 	void Attack() {
 		Debug.Log ("sent damage");
-
-		GameObject.FindGameObjectWithTag("Enemy").SendMessage("ApplyDamage", dmg,SendMessageOptions.DontRequireReceiver);
+		closestEnemy.SendMessage("ApplyDamage", dmg,SendMessageOptions.DontRequireReceiver);
+	}
+	void FindClosestEnemy (){
+		GameObject[] En;
+		En = GameObject.FindGameObjectsWithTag("Enemy");
+		foreach (GameObject i in En) {
+			Vector3 diff = i.transform.position - this.transform.position;
+			float curDistance = diff.sqrMagnitude;
+			if(curDistance < distance){
+				closestEnemy = i;
+				distance = curDistance;
+			}
+		}
 	}
 }
 
